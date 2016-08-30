@@ -37,7 +37,7 @@
 #include "GUIDEMO.h"
 #include "Page.h"
 #include "ParticleSensor.h"
-
+#include "B2B_Comm.h"
 
 #define REFRESH_COUNT           ((uint32_t)1386)   /* SDRAM refresh counter */
 #define SDRAM_TIMEOUT           ((uint32_t)0xFFFF)
@@ -128,13 +128,23 @@ int main(void)
   GUI_Exec();
   while (1)
   {
-  /* USER CODE END WHILE */
+    /* particle sensor */
 	if(Sensor3.PMSFrameFlag)
 	{
 	  Sensor3.PMSFrameFlag = 0;
 		if(FrameCheck(&Sensor3))
 		{
 			Sensor3.data_pm2_5 = WORD_SWAP(Sensor3.PMSUnion->MyPMFrame.PM2_5_US);
+			New_PM_Data = 1;
+		}
+	}
+
+	/*main board to display board communication*/
+	if(MyM2DComm.FrameFlag)
+	{
+		MyM2DComm.FrameFlag = 0;
+		if(M2DFrameCheck(&MyM2DComm))
+		{
 			New_PM_Data = 1;
 		}
 	}

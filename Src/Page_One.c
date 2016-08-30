@@ -8,8 +8,8 @@
 #include "Font.h"
 #include "ParticleSensor.h"
 
-unsigned short In_PM2_5_Value;
-unsigned short Out_PM2_5_Value;
+unsigned short Old_In_PM2_5_Value;
+unsigned short Old_Out_PM2_5_Value;
 unsigned char PM2_5_String[5];
 static const unsigned char len[]={6,10,12,14,16,16};
 
@@ -33,9 +33,10 @@ void Page_One_Init()
 	GUI_DispStringInRect("AIR PARTILCES OUT", &myRect, GUI_TA_VCENTER | GUI_TA_HCENTER);
 
 	//out pm2.5 value
+	Old_In_PM2_5_Value = Sensor3.data_pm2_5;
 	GUI_SetFont(&GUI_FontCalibri_99);
 	GUI_SetColor(GUI_BLUE);
-	Value2String(15,PM2_5_String);
+	Value2String(Sensor3.data_pm2_5,PM2_5_String);
 	myRect.x0 = 0;
 	myRect.y0 = 48;
 	myRect.x1 = 319;
@@ -64,6 +65,7 @@ void Page_One_Init()
 	GUI_DispStringInRect("AIR PARTILCES IN", &myRect, GUI_TA_VCENTER | GUI_TA_HCENTER);
 
 	//IN pm2.5 value
+	//Old_Out_PM2_5_Value = OutSensor.data_pm2_5;
 	GUI_SetFont(&GUI_FontCalibri_73);
 	GUI_SetColor(GUI_ORANGE);
 	Value2String(145,PM2_5_String);
