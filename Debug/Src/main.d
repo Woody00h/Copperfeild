@@ -27,6 +27,8 @@ Src/main.o: ../Src/main.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_ltdc_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h \
  ../Src/ili9488.h ../STemWin/inc/GUI.h ../STemWin/inc/GUI_ConfDefaults.h \
@@ -43,7 +45,8 @@ Src/main.o: ../Src/main.c \
  ../STemWin/inc/SLIDER.h ../STemWin/inc/HEADER.h ../STemWin/inc/GRAPH.h \
  ../STemWin/inc/ICONVIEW.h ../STemWin/inc/LISTVIEW.h \
  ../STemWin/inc/ICONVIEW.h ../STemWin/inc/HEADER.h \
- ../STemWin/inc/TREEVIEW.h ../Src/Page.h ../Src/ParticleSensor.h
+ ../STemWin/inc/TREEVIEW.h ../Src/Page.h ../Src/ParticleSensor.h \
+ ../Src/B2B_Comm.h
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 
@@ -102,6 +105,10 @@ Src/main.o: ../Src/main.c \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h:
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
+
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
+
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
 
@@ -176,3 +183,5 @@ Src/main.o: ../Src/main.c \
 ../Src/Page.h:
 
 ../Src/ParticleSensor.h:
+
+../Src/B2B_Comm.h:

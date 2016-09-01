@@ -4,6 +4,7 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Src/B2B_Comm.c \
 ../Src/Page_One.c \
 ../Src/Page_Three.c \
 ../Src/Page_Two.c \
@@ -14,6 +15,7 @@ C_SRCS += \
 ../Src/stm32f4xx_it.c 
 
 OBJS += \
+./Src/B2B_Comm.o \
 ./Src/Page_One.o \
 ./Src/Page_Three.o \
 ./Src/Page_Two.o \
@@ -24,6 +26,7 @@ OBJS += \
 ./Src/stm32f4xx_it.o 
 
 C_DEPS += \
+./Src/B2B_Comm.d \
 ./Src/Page_One.d \
 ./Src/Page_Three.d \
 ./Src/Page_Two.d \

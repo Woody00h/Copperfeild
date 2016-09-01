@@ -59,11 +59,13 @@
 #define SDRAM_MODEREG_WRITEBURST_MODE_SINGLE     ((uint16_t)0x0200)
 
 /* Private variables ---------------------------------------------------------*/
-LTDC_HandleTypeDef hltdc;
-
-SDRAM_HandleTypeDef hsdram2;
+LTDC_HandleTypeDef	hltdc;
+TIM_HandleTypeDef	htim4;
+SDRAM_HandleTypeDef	hsdram2;
+UART_HandleTypeDef 	UART7_Handle;
 FMC_SDRAM_CommandTypeDef Command;
 unsigned char New_PM_Data;
+
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 
@@ -76,11 +78,13 @@ static void MX_GPIO_Init(void);
 static void MX_FMC_Init(void);
 void MX_LTDC_Init(void);
 void UART4_Init();
+void UART7_Init();
+void MX_TIM4_Init(void);
 
 extern WM_HWIN CreateFramewin(void);
 extern WM_HWIN CreateWindow(void);
 extern void Page_Three_Init();
-extern void Handle_Page_one();
+extern void Handle_Page_One();
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
@@ -117,6 +121,8 @@ int main(void)
   MX_GPIO_Init();
   MX_FMC_Init();
   UART4_Init();
+  UART7_Init();
+  MX_TIM4_Init();
   __HAL_RCC_CRC_CLK_ENABLE();
 
   GUI_Init();
@@ -125,7 +131,7 @@ int main(void)
 //  Page_Two_Init();
 //  Page_Three_Init();
 //  CreateWindow();
-  GUI_Exec();
+//  GUI_Exec();
   while (1)
   {
     /* particle sensor */
@@ -135,6 +141,7 @@ int main(void)
 		if(FrameCheck(&Sensor3))
 		{
 			Sensor3.data_pm2_5 = WORD_SWAP(Sensor3.PMSUnion->MyPMFrame.PM2_5_US);
+			In_PM.PM_Value = Sensor3.data_pm2_5;
 			New_PM_Data = 1;
 		}
 	}
@@ -145,11 +152,25 @@ int main(void)
 		MyM2DComm.FrameFlag = 0;
 		if(M2DFrameCheck(&MyM2DComm))
 		{
+			Hepa_Life = (MyM2DComm.M2DUnionPtr->MyM2DStruct.L_HEPA_Life + MyM2DComm.M2DUnionPtr->MyM2DStruct.R_HEPA_Life)>>1;
+			if(Hepa_Life > 99)
+				Hepa_Life = 99;
+
+			Carbon_Life = (MyM2DComm.M2DUnionPtr->MyM2DStruct.L_Carbon_Life + MyM2DComm.M2DUnionPtr->MyM2DStruct.R_Carbon_Life)>>1;
+			if(Carbon_Life > 99)
+				Carbon_Life = 99;
+
+			VOC_Level = MyM2DComm.M2DUnionPtr->MyM2DStruct.VOC_Level;
+			Out_PM.PM_Value = MyM2DComm.M2DUnionPtr->MyM2DStruct.PM2_5_US;
+			if(Out_PM.PM_Value > 99)
+				Out_PM.PM_Value = 99;
+
 			New_PM_Data = 1;
 		}
 	}
 
 	Handle_Page_One();
+
 	asm("wfi");
   /* USER CODE BEGIN 3 */
 
@@ -389,8 +410,8 @@ static void MX_GPIO_Init(void)
   //LCD RESET, SPI_CS, SPI_SIMO, SPI_CLK
   HAL_GPIO_WritePin(GPIOD, GPIO_PIN_2 | GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_7, GPIO_PIN_SET);
 
-  /*BACKLIGHT */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
+  /*RTS PB4*/
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET);
 
   /*LCD RESET, SPI_CS, SPI_SIMO, SPI_CLK */
   GPIO_InitStruct.Pin =  GPIO_PIN_2 | GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_7;
@@ -399,11 +420,16 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
+  /*RTS PB4*/
+  GPIO_InitStruct.Pin =  GPIO_PIN_4;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
   /*Configure BACKLIGHT */
   GPIO_InitStruct.Pin = GPIO_PIN_7;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF2_TIM4;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 }
 
@@ -438,6 +464,85 @@ void UART4_Init()
 
 	HAL_NVIC_SetPriority(UART4_IRQn, 4, 0);
 	HAL_NVIC_EnableIRQ(UART4_IRQn);
+}
+
+/* USER CODE BEGIN 4 */
+void UART7_Init()
+{
+	GPIO_InitTypeDef UART7_GPIO;
+
+	__GPIOF_CLK_ENABLE();
+
+	UART7_GPIO.Pin = GPIO_PIN_6 | GPIO_PIN_7;
+	UART7_GPIO.Alternate = GPIO_AF8_UART7;
+	UART7_GPIO.Speed = GPIO_SPEED_FAST;
+	UART7_GPIO.Mode = GPIO_MODE_AF_PP;
+	UART7_GPIO.Pull = GPIO_NOPULL;
+
+	HAL_GPIO_Init(GPIOF,&UART7_GPIO);
+
+	__UART7_CLK_ENABLE();
+	UART7_Handle.Instance = UART7;
+	UART7_Handle.Init.BaudRate = 9600;
+	UART7_Handle.Init.WordLength = UART_WORDLENGTH_8B;
+	UART7_Handle.Init.StopBits = UART_STOPBITS_1;
+	UART7_Handle.Init.Parity = UART_PARITY_NONE;
+	UART7_Handle.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+	UART7_Handle.Init.Mode = UART_MODE_TX_RX;
+	UART7_Handle.Init.OverSampling = UART_OVERSAMPLING_16;
+
+	HAL_UART_Init(&UART7_Handle);
+	UART7->CR1 = 0x202C;
+
+	HAL_NVIC_SetPriority(UART7_IRQn, 4, 0);
+	HAL_NVIC_EnableIRQ(UART7_IRQn);
+}
+void MX_TIM4_Init(void)
+{
+
+  TIM_ClockConfigTypeDef sClockSourceConfig;
+  TIM_MasterConfigTypeDef sMasterConfig;
+  TIM_BreakDeadTimeConfigTypeDef sBreakDeadTimeConfig;
+  TIM_OC_InitTypeDef sConfigOC;
+
+  __TIM4_CLK_ENABLE();
+
+  htim4.Instance = TIM4;
+  htim4.Init.Prescaler = 599;
+  htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim4.Init.Period = 599;
+  htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim4.Init.RepetitionCounter = 0;
+  HAL_TIM_Base_Init(&htim4);
+
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  HAL_TIM_ConfigClockSource(&htim4, &sClockSourceConfig);
+
+  HAL_TIM_OC_Init(&htim4);
+
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  HAL_TIMEx_MasterConfigSynchronization(&htim4, &sMasterConfig);
+
+  sBreakDeadTimeConfig.OffStateRunMode = TIM_OSSR_DISABLE;
+  sBreakDeadTimeConfig.OffStateIDLEMode = TIM_OSSI_DISABLE;
+  sBreakDeadTimeConfig.LockLevel = TIM_LOCKLEVEL_OFF;
+  sBreakDeadTimeConfig.DeadTime = 0;
+  sBreakDeadTimeConfig.BreakState = TIM_BREAK_DISABLE;
+  sBreakDeadTimeConfig.BreakPolarity = TIM_BREAKPOLARITY_HIGH;
+  sBreakDeadTimeConfig.AutomaticOutput = TIM_AUTOMATICOUTPUT_DISABLE;
+  HAL_TIMEx_ConfigBreakDeadTime(&htim4, &sBreakDeadTimeConfig);
+
+  sConfigOC.OCMode = TIM_OCMODE_PWM1;
+  sConfigOC.Pulse = 300;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+//  sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_ENABLE;
+  sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;
+//  sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
+  HAL_TIM_OC_ConfigChannel(&htim4, &sConfigOC, TIM_CHANNEL_2);
+
+  HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_2);
 }
 /* USER CODE END 4 */
 

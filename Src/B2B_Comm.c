@@ -10,6 +10,9 @@
 #include "ParticleSensor.h"
 #include "stm32f4xx.h"
 
+#define RXNE 	0x20
+#define TXE		0x80
+
 Main2DispComm  MyM2DComm = {&MyM2DUnion,0,0,0,0};
 
 void UART7_IRQHandler()
@@ -36,20 +39,20 @@ void UART7_IRQHandler()
 #else
 			(MyM2DComm.M2DUnionPtr)->MyM2DStruct.Head <<= 8;
 #endif
-			(MyM2DComm.M2DUnionPtr)->MyM2DStruct[1] = rxdata;
+			(MyM2DComm.M2DUnionPtr)->Main2DispBuf[1] = rxdata;
 			MyM2DComm.DataPtr = 2;
 		}
 
 		//head check
-		if( MyM2DComm.DataPtr == 2 && (MyM2DComm.M2DUnionPtr)->MyM2DStruct.Head == FRAME_HEAD)
+		if( MyM2DComm.DataPtr == 2 && (MyM2DComm.M2DUnionPtr)->MyM2DStruct.Head == B2B_FRAME_HEAD)
 		{
 			MyM2DComm.HeadFlag = 1;
 		}
 	}
 	else
 	{
-		(MyM2DComm.M2DUnionPtr)->MyM2DStruct[MyM2DComm.DataPtr] = rxdata;
-		if(MyM2DComm.DataPtr >= (BUF_LENGTH-1))
+		(MyM2DComm.M2DUnionPtr)->Main2DispBuf[MyM2DComm.DataPtr] = rxdata;
+		if(MyM2DComm.DataPtr >= (B2B_BUF_LENGTH-1))
 		{
 			MyM2DComm.HeadFlag = 0;
 			MyM2DComm.DataPtr = 0;
@@ -61,7 +64,7 @@ void UART7_IRQHandler()
 			MyM2DComm.DataPtr ++;
 		}
 
-		if(MyM2DComm.DataPtr >= 6 && MyM2DComm.DataPtr == (WORD_SWAP((MyM2DComm.M2DUnionPtr)->MyM2DStruct.Length) + 4))
+		if(MyM2DComm.DataPtr >= 6 && MyM2DComm.DataPtr == (MyM2DComm.M2DUnionPtr->MyM2DStruct.Length + 4))
 		{
 			MyM2DComm.FrameFlag = 1;
 			MyM2DComm.HeadFlag = 0;
@@ -74,7 +77,7 @@ u8 M2DFrameCheck(Main2DispComm *comm)
 {
 	u16 checksum = 0;
 	u8 i = 0;
-	u16 len = WORD_SWAP(comm->M2DUnionPtr->MyM2DStruct.Length);
+	u16 len = comm->M2DUnionPtr->MyM2DStruct.Length;
 
 	for (i = 0; i < (len+2); i++)
 	{
@@ -84,7 +87,7 @@ u8 M2DFrameCheck(Main2DispComm *comm)
 	comm->M2DUnionPtr->MyM2DStruct.Length = 0;
 	comm->M2DUnionPtr->MyM2DStruct.Head = 0;
 
-	if (checksum == WORD_SWAP(comm->M2DUnionPtr->MyM2DStruct.CheckSum))
+	if (checksum == comm->M2DUnionPtr->MyM2DStruct.CheckSum)
 	{
 		return 1;
 	}

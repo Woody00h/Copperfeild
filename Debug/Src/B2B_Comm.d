@@ -1,9 +1,5 @@
-Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o: \
- ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c \
- ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
- ../Inc/stm32f4xx_hal_conf.h ../Inc/mxconstants.h \
- ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
- ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h \
+Src/B2B_Comm.o: ../Src/B2B_Comm.c ../Src/B2B_Comm.h \
+ ../Src/ParticleSensor.h \
  ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h \
  ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f429xx.h \
  ../Drivers/CMSIS/Include/core_cm4.h \
@@ -12,6 +8,10 @@ Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o: \
  ../Drivers/CMSIS/Include/core_cmFunc.h \
  ../Drivers/CMSIS/Include/core_cmSimd.h \
  ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
+ ../Inc/stm32f4xx_hal_conf.h ../Inc/mxconstants.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h \
@@ -33,15 +33,9 @@ Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o: \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h
 
-../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
+../Src/B2B_Comm.h:
 
-../Inc/stm32f4xx_hal_conf.h:
-
-../Inc/mxconstants.h:
-
-../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:
-
-../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h:
+../Src/ParticleSensor.h:
 
 ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:
 
@@ -58,6 +52,16 @@ Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o: \
 ../Drivers/CMSIS/Include/core_cmSimd.h:
 
 ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h:
+
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
+
+../Inc/stm32f4xx_hal_conf.h:
+
+../Inc/mxconstants.h:
+
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:
+
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h:
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h:
 

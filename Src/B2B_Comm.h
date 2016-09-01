@@ -14,9 +14,12 @@
 #define B2B_COMM_EXTERN
 #else
 #define B2B_COMM_EXTERN extern
-extern Main2DispComm  MyM2DComm;
 #endif
 
+#define B2B_FRAME_HEAD 0x444d
+
+
+#define B2B_BUF_LENGTH 30
 typedef unsigned char  u8;
 typedef unsigned short u16;
 typedef unsigned int   u32;
@@ -27,6 +30,7 @@ typedef struct
 	u16 Length;
 	u16 PM2_5_US;
 	u16 PM10_US;
+	u16 PQ0_3;
 	u16 AQI_Out;
 	u16 AQI_In;
 	u8  L_Filter_Type;
@@ -38,7 +42,7 @@ typedef struct
 	u8  VOC_Level;
 	u8  Reserve1;
 	u8  Reserve2;
-	u16 Err;
+	u8  Err;
 	u16 CheckSum;
 }Main2DispStruct;
 
@@ -56,7 +60,7 @@ typedef struct
 
 typedef union
 {
-	u8 Main2DispBuf[30];
+	u8 Main2DispBuf[B2B_BUF_LENGTH];
 	Main2DispStruct MyM2DStruct;
 }Main2DispUnion;
 
@@ -78,4 +82,5 @@ typedef struct
 B2B_COMM_EXTERN Main2DispUnion MyM2DUnion;
 B2B_COMM_EXTERN Disp2MainUnion MyD2MUnion;
 B2B_COMM_EXTERN u8 M2DFrameCheck(Main2DispComm *comm);
+extern Main2DispComm  MyM2DComm;
 #endif /* B2B_COMM_H_ */
