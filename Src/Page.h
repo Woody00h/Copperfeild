@@ -14,6 +14,13 @@ typedef enum {
 	POOR,
 }PM_LEVEL;
 
+typedef enum {
+	PAGE_ONE,
+	PAGE_TWO,
+	PAGE_THREE,
+	PAGE_FOUR,
+}PAGE_TYPE;
+
 typedef struct
 {
 	unsigned short PM_Value;
@@ -31,5 +38,10 @@ extern PM_Info Out_PM;
 
 void Page_One_Init();
 void Page_Two_Init();
+void Page_Three_Init();
 
+void Handle_Page_One();
+void Handle_Page_Two();
+void Handle_Page_Three();
+WM_HWIN CreateWindow(void);
 #endif

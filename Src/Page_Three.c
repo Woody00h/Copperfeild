@@ -9,33 +9,26 @@
 #include "Font.h"
 
 extern GUI_BITMAP bmBrightnessIconBlack;
-
-#define FRAME_BUF_BASE 0XD0000000
-void My_BMP_Draw(GUI_BITMAP * bmp , unsigned short x, unsigned short y)
+unsigned char Bright_Level;
+const unsigned short Bright_Duty[] = {100,200,300,400,500,600,700};
+void Bright_Bar_Update()
 {
-	unsigned short * bufindex = (unsigned short *)(FRAME_BUF_BASE + y*320*2 + x*2);
-	unsigned short * buf;
-	unsigned short *bmpdata = (unsigned short *)(bmp->pData);
-	unsigned short line,col;
+	int x0 = 118,x1=128,i;
 
-	if(bmp)
+	//brightness probar
+	for(i=0;i<7;i++)
 	{
-		for(line = 0; line < bmp->YSize; line++)
-		{
-			buf = bufindex;
-			for(col = 0; col < bmp->XSize; col++)
-			{
-				*buf = *bmpdata;
-				buf++;
-				bmpdata++;
-			}
-			bufindex += 320;
-		}
+		if(Bright_Level >= i)
+			GUI_SetColor(GUI_YELLOW);
+		else
+			GUI_SetColor(GUI_GRAY);
+		GUI_FillRect(x0, 332, x1, 342);
+		x0 += 13;
+		x1 += 13;
 	}
 }
 void Page_Three_Init()
 {
-	int x0 = 118,x1=128,i;
 	GUI_RECT myRect = {0,364,319,383};
 
 	//clear window
@@ -45,14 +38,7 @@ void Page_Three_Init()
 	//The sun picture
 	GUI_DrawBitmap(&bmBrightnessIconBlack, 15,36);
 
-	//lightness probar
-	GUI_SetColor(GUI_YELLOW);
-	for(i=0;i<7;i++)
-	{
-		GUI_FillRect(x0, 332, x1, 342);
-		x0 += 13;
-		x1 += 13;
-	}
+	Bright_Bar_Update();
 
 	//"BRIGHTNESS"
 	GUI_SetFont(&GUI_FontCalibri_19_Bold);
@@ -64,4 +50,20 @@ void Page_Three_Init()
 	GUI_DrawCircle(141,463,6);
 	GUI_DrawCircle(164,463,6);
 	GUI_FillCircle(187,463,6);
+}
+
+void Handle_Page_Three()
+{
+	if(Tune_Key_Flag && Tune_Key_Toggle)
+	{
+		Tune_Key_Toggle = 0;
+
+		Bright_Level ++;
+		if(Bright_Level > 6)
+			Bright_Level = 0;
+
+		__HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_2, Bright_Duty[Bright_Level]);
+
+		Bright_Bar_Update();
+	}
 }

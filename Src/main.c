@@ -81,36 +81,26 @@ void UART4_Init();
 void UART7_Init();
 void MX_TIM4_Init(void);
 
-extern WM_HWIN CreateFramewin(void);
-extern WM_HWIN CreateWindow(void);
-extern void Page_Three_Init();
-extern void Handle_Page_One();
-
-/* USER CODE BEGIN PFP */
-/* Private function prototypes -----------------------------------------------*/
-
-/* USER CODE END PFP */
-
-/* USER CODE BEGIN 0 */
-
-/* USER CODE END 0 */
-unsigned int *p;
-unsigned int cnt;
-unsigned int fb[100];
+unsigned char page_key_flag;
+unsigned char page_key_toggle;
+unsigned char page_key_debounce_timer;
+unsigned char tune_key_flag;
+unsigned char tune_key_toggle;
+unsigned char tune_key_debounce_timer;
+PAGE_TYPE Active_Page;
 
 void __errno()
 {
 
 }
+
+void Timer_ISR()
+{
+	if(page_key_debounce_timer)		page_key_debounce_timer--;
+	if(tune_key_debounce_timer)		tune_key_debounce_timer--;
+}
 int main(void)
 {
-
-  /* USER CODE BEGIN 1 */
-
-  /* USER CODE END 1 */
-
-  /* MCU Configuration----------------------------------------------------------*/
-
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
 
@@ -132,6 +122,9 @@ int main(void)
 //  Page_Three_Init();
 //  CreateWindow();
 //  GUI_Exec();
+
+  page_key_debounce_timer = 100;
+  tune_key_debounce_timer = 100;
   while (1)
   {
     /* particle sensor */
@@ -169,6 +162,7 @@ int main(void)
 		}
 	}
 
+	Read_Key();
 	Handle_Page_One();
 
 	asm("wfi");
@@ -424,6 +418,16 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pin =  GPIO_PIN_4;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
+  /*2 keys PA8 PC9*/
+  GPIO_InitStruct.Pin =  GPIO_PIN_8;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  GPIO_InitStruct.Pin =  GPIO_PIN_9;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
   /*Configure BACKLIGHT */
   GPIO_InitStruct.Pin = GPIO_PIN_7;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -510,7 +514,7 @@ void MX_TIM4_Init(void)
   htim4.Instance = TIM4;
   htim4.Init.Prescaler = 599;
   htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim4.Init.Period = 599;
+  htim4.Init.Period = 699;
   htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim4.Init.RepetitionCounter = 0;
   HAL_TIM_Base_Init(&htim4);
@@ -543,6 +547,75 @@ void MX_TIM4_Init(void)
   HAL_TIM_OC_ConfigChannel(&htim4, &sConfigOC, TIM_CHANNEL_2);
 
   HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_2);
+}
+
+void Read_Key()
+{
+	page_key_flag = 0;
+	if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_8) == GPIO_PIN_RESET)
+	{
+		page_key_debounce_timer = 100;
+		page_key_toggle = 1;
+	}
+	else
+	{
+		if(!page_key_debounce_timer)
+		{
+			page_key_flag = 1;
+		}
+	}
+
+	tune_key_flag = 0;
+	if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_9) == GPIO_PIN_RESET)
+	{
+		tune_key_debounce_timer = 100;
+		tune_key_toggle = 1;
+	}
+	else
+	{
+		if(!tune_key_debounce_timer)
+		{
+			tune_key_flag = 1;
+		}
+	}
+}
+void Start_New_Page(PAGE_TYPE New_Page)
+{
+	Active_Page = New_Page;
+	switch (Active_Page)
+	{
+	case PAGE_ONE:
+		Page_One_Init();
+		break;
+	case PAGE_TWO:
+		break;
+	case PAGE_THREE:
+		Page_Three_Init();
+		break;
+	case PAGE_FOUR:
+		break;
+	default:
+		break;
+	}
+
+}
+void Handle_Pages()
+{
+	switch (Active_Page)
+	{
+	case PAGE_ONE:
+		Handle_Page_One();
+		break;
+	case PAGE_TWO:
+		break;
+	case PAGE_THREE:
+		Handle_Page_Three();
+		break;
+	case PAGE_FOUR:
+		break;
+	default:
+		break;
+	}
 }
 /* USER CODE END 4 */
 
