@@ -23,6 +23,7 @@
 
 #include "DIALOG.h"
 #include "Font.h"
+#include "Page.h"
 /*********************************************************************
 *
 *       Defines
@@ -50,6 +51,7 @@
 
 // USER START (Optionally insert additional defines)
 // USER END
+
 /*********************************************************************
 *
 *       Static data
@@ -60,8 +62,7 @@
 *
 *       _acImage_0, "C:\chendong\My document\Document\Copperfeild\UI\UI BMP\Products_Standard_Filter_Black_Small.bmp", ID_IMAGE_0_IMAGE_0
 */
-static const U8 _acImage_0[65782] =
-{
+static const U8 _acImage_0[65782] = {
   0x42, 0x4D, 0xF6, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x36, 0x00, 0x00, 0x00, 0x28, 0x00, 0x00, 0x00, 0x8A, 0x00, 0x00, 0x00, 0x9E, 0x00, 0x00, 0x00, 0x01, 0x00, 0x18, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -1635,7 +1636,7 @@ static const U8 _acImage_0[65782] =
 *
 *       _acImage_1, "C:\chendong\My document\Document\Copperfeild\UI\UI BMP\AeraMax Pro Logo + QR.bmp", ID_IMAGE_1_IMAGE_0
 */
-static U8 _acImage_1[83958] = {
+static const U8 _acImage_1[83958] = {
   0x42, 0x4D, 0xF6, 0x47, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x36, 0x00, 0x00, 0x00, 0x28, 0x00, 0x00, 0x00, 0x2F, 0x01, 0x00, 0x00, 0x5C, 0x00, 0x00, 0x00, 0x01, 0x00, 0x18, 0x00, 0x00, 0x00, 0x00, 0x00, 0xC0, 0x47, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00,
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -3658,8 +3659,8 @@ static const GUI_WIDGET_CREATE_INFO _aDialogCreate[] = {
   { TEXT_CreateIndirect, "CONTAIN", ID_TEXT_5, 201, 119, 87, 15, 0, 0x64, 0 },
   { TEXT_CreateIndirect, "CARBON_FILTER", ID_TEXT_6, 201, 134, 87, 15, 0, 0x64, 0 },
   { TEXT_CreateIndirect, "HEPA FILTER", ID_TEXT_7, 201, 149, 87, 15, 0, 0x64, 0 },
-  { TEXT_CreateIndirect, "CARBON_LIFE", ID_TEXT_8, 257, 296, 40, 13, 0, 0x64, 0 },
-  { TEXT_CreateIndirect, "HEPA_LIFE", ID_TEXT_9, 257, 270, 40, 13, 0, 0x64, 0 },
+  { TEXT_CreateIndirect, "HEPA_LIFE", ID_TEXT_8, 257, 268, 60, 15, 0, 0x64, 0 },
+  { TEXT_CreateIndirect, "CARBON_LIFE", ID_TEXT_9, 257, 294, 60, 15, 0, 0x64, 0 },
   // USER START (Optionally insert additional widgets)
   // USER END
 };
@@ -3697,6 +3698,7 @@ static void _cbDialog(WM_MESSAGE * pMsg) {
   const void * pData;
   WM_HWIN      hItem;
   U32          FileSize;
+  U8		   i;
   // USER START (Optionally insert additional variables)
   // USER END
 
@@ -3725,37 +3727,43 @@ static void _cbDialog(WM_MESSAGE * pMsg) {
     // Initialization of 'HEPA_PROBAR'
     //
     hItem = WM_GetDialogItem(pMsg->hWin, ID_PROGBAR_0);
+    PROGBAR_SetSkinClassic(hItem);
     PROGBAR_SetText(hItem,"");
-//    PROGBAR_SetFont(hItem, GUI_FONT_13_1);
-//    PROGBAR_SetTextPos(hItem, 137, 2);
-//    PROGBAR_SetTextColor(hItem, 1, GUI_GREEN);
-    PROGBAR_SetValue(hItem, 50);
-//    PROGBAR_SetBarColor(hItem, 1 , GUI_GRAY);
-//    PROGBAR_SetBarColor(hItem, 0 , GUI_GREEN);
-
-    hItem = WM_GetDialogItem(pMsg->hWin, ID_TEXT_9);
-    TEXT_SetText(hItem, "99%");
-    TEXT_SetTextColor(hItem, GUI_GREEN);
-    TEXT_SetTextAlign(hItem, GUI_TA_HCENTER | GUI_TA_VCENTER);
-    TEXT_SetFont(hItem, FONT_CALIBRI_13_BOLD);
-
+    PROGBAR_SetValue(hItem, 100-Hepa_Life);
+    PROGBAR_SetBarColor(hItem, 0 , 0x4C4C4C);
+    if(Hepa_Life>60)
+	{
+		PROGBAR_SetBarColor(hItem,1,GUI_GREEN);
+	}
+	else if(Hepa_Life>30)
+	{
+		PROGBAR_SetBarColor(hItem,1,GUI_YELLOW);
+	}
+	else
+	{
+		PROGBAR_SetBarColor(hItem,1,GUI_RED);
+	}
+    
     //
     // Initialization of 'CARBON_PROBAR'
     //
     hItem = WM_GetDialogItem(pMsg->hWin, ID_PROGBAR_1);
+    PROGBAR_SetSkinClassic(hItem);
     PROGBAR_SetText(hItem,"");
-//    PROGBAR_SetFont(hItem, GUI_FONT_13_1);
-//    PROGBAR_SetTextPos(hItem, 137, 2);
-//    PROGBAR_SetTextColor(hItem, 1, GUI_RED);
-    PROGBAR_SetValue(hItem, 50);
-    PROGBAR_SetBarColor(hItem, 0 , GUI_RED);
-    PROGBAR_SetBarColor(hItem, 1 , GUI_GREEN);
-
-    hItem = WM_GetDialogItem(pMsg->hWin, ID_TEXT_8);
-    TEXT_SetText(hItem, "99%");
-    TEXT_SetTextColor(hItem, GUI_GREEN);
-    TEXT_SetTextAlign(hItem, GUI_TA_HCENTER | GUI_TA_VCENTER);
-    TEXT_SetFont(hItem, FONT_CALIBRI_13_BOLD);
+	PROGBAR_SetValue(hItem, 100-Carbon_Life);
+    PROGBAR_SetBarColor(hItem, 0 , 0x4C4C4C);
+    if(Carbon_Life>60)
+	{
+		PROGBAR_SetBarColor(hItem,1,GUI_GREEN);
+	}
+	else if(Carbon_Life>30)
+	{
+		PROGBAR_SetBarColor(hItem,1,GUI_YELLOW);
+	}
+	else
+	{
+		PROGBAR_SetBarColor(hItem,1,GUI_RED);
+	}
 
     //
     // Initialization of 'CARBON'
@@ -3818,13 +3826,72 @@ static void _cbDialog(WM_MESSAGE * pMsg) {
     TEXT_SetText(hItem, "2'' TRUE HEPA");
     TEXT_SetTextAlign(hItem, GUI_TA_HCENTER | GUI_TA_VCENTER);
     TEXT_SetFont(hItem, GUI_FONT_13_1);
+    //
+    // Initialization of 'HEPA_LIFE'
+    //
+    hItem = WM_GetDialogItem(pMsg->hWin, ID_TEXT_8);
+    TEXT_SetFont(hItem, FONT_CALIBRI_13_BOLD);
+    TEXT_SetTextAlign(hItem, GUI_TA_LEFT | GUI_TA_TOP);
+    if(Hepa_Life>60)
+	{
+    	TEXT_SetTextColor(hItem,GUI_GREEN);
+	}
+	else if(Hepa_Life>30)
+	{
+		TEXT_SetTextColor(hItem,GUI_YELLOW);
+	}
+	else
+	{
+		TEXT_SetTextColor(hItem,GUI_RED);
+	}
+    Value2String(Hepa_Life,PM2_5_String);
+	for(i=0;;i++)
+	{
+		if(PM2_5_String[i] == '\0')
+		{
+			PM2_5_String[i] = '%';
+			PM2_5_String[i+1] = '\0';
+			break;
+		}
+	}
+	TEXT_SetText(hItem, PM2_5_String);
+    //
+    // Initialization of 'CARBON_LIFE'
+    //
+    hItem = WM_GetDialogItem(pMsg->hWin, ID_TEXT_9);
+    TEXT_SetFont(hItem, FONT_CALIBRI_13_BOLD);
+    TEXT_SetTextAlign(hItem, GUI_TA_LEFT | GUI_TA_TOP);
+    if(Carbon_Life>60)
+	{
+    	TEXT_SetTextColor(hItem,GUI_GREEN);
+	}
+	else if(Carbon_Life>30)
+	{
+		TEXT_SetTextColor(hItem,GUI_YELLOW);
+	}
+	else
+	{
+		TEXT_SetTextColor(hItem,GUI_RED);
+	}
+
+    Value2String(Carbon_Life,PM2_5_String);
+	for(i=0;;i++)
+	{
+		if(PM2_5_String[i] == '\0')
+		{
+			PM2_5_String[i] = '%';
+			PM2_5_String[i+1] = '\0';
+			break;
+		}
+	}
+	TEXT_SetText(hItem, PM2_5_String);
     // USER START (Optionally insert additional code for further widget initialization)
     // USER END
     break;
   // USER START (Optionally insert additional message handling)
   // USER END
-
-  case WM_PAINT:
+  
+    case WM_PAINT:
 	GUI_SetColor(GUI_WHITE);
 	GUI_DrawHLine(132,216,273);
 	GUI_DrawCircle(141,463,6);
@@ -3833,7 +3900,6 @@ static void _cbDialog(WM_MESSAGE * pMsg) {
 	WM_DefaultProc(pMsg);
 
 	break;
-
   default:
     WM_DefaultProc(pMsg);
     break;
@@ -3853,6 +3919,7 @@ static void _cbDialog(WM_MESSAGE * pMsg) {
 WM_HWIN CreateWindow(void);
 WM_HWIN CreateWindow(void) {
   WM_HWIN hWin;
+
   hWin = GUI_CreateDialogBox(_aDialogCreate, GUI_COUNTOF(_aDialogCreate), _cbDialog, WM_HBKWIN, 0, 0);
   return hWin;
 }

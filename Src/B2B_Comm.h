@@ -82,5 +82,6 @@ typedef struct
 B2B_COMM_EXTERN Main2DispUnion MyM2DUnion;
 B2B_COMM_EXTERN Disp2MainUnion MyD2MUnion;
 B2B_COMM_EXTERN u8 M2DFrameCheck(Main2DispComm *comm);
+B2B_COMM_EXTERN void Send2MainBoard();
 extern Main2DispComm  MyM2DComm;
 #endif /* B2B_COMM_H_ */

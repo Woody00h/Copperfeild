@@ -19,27 +19,36 @@
 **********************************************************************
 *                                                                    *
 * Initial font height:  26                                           *
-* Edit/Delete/Bottom    at character 0x31 (49)                       *
-* Edit/Delete/Bottom    at character 0x31 (49)                       *
-* Edit/Delete/Bottom    at character 0x31 (49)                       *
-* Edit/Delete/Bottom    at character 0x31 (49)                       *
-* Edit/Delete/Bottom    at character 0x31 (49)                       *
-* Edit/Delete/Bottom    at character 0x31 (49)                       *
-* Edit/Delete/Top       at character 0x31 (49)                       *
-* Edit/Delete/Top       at character 0x31 (49)                       *
-* Edit/Delete/Top       at character 0x31 (49)                       *
-* Edit/Delete/Top       at character 0x31 (49)                       *
-* Edit/Delete/Top       at character 0x31 (49)                       *
-* Edit/Delete/Top       at character 0x31 (49)                       *
-* Edit/Delete/Top       at character 0x31 (49)                       *
+* Edit/Delete/Top       at character 0x41 (65)                       *
+* Edit/Delete/Top       at character 0x41 (65)                       *
+* Edit/Delete/Top       at character 0x41 (65)                       *
+* Edit/Delete/Top       at character 0x41 (65)                       *
+* Edit/Delete/Top       at character 0x41 (65)                       *
+* Edit/Delete/Top       at character 0x41 (65)                       *
+* Edit/Delete/Top       at character 0x41 (65)                       *
+* Edit/Delete/Bottom    at character 0x41 (65)                       *
+* Edit/Delete/Bottom    at character 0x41 (65)                       *
+* Edit/Delete/Bottom    at character 0x41 (65)                       *
+* Edit/Delete/Bottom    at character 0x41 (65)                       *
 * Range disabled:       0000 - FFFF                                  *
+* Character enabled:   0x41 (65)                                     *
 * Character disabled:  0x40 (64)                                     *
 * Character enabled:   0x20 (32)                                     *
+* Character disabled:  0x3A (58)                                     *
+* Character disabled:  0x3B (59)                                     *
+* Character disabled:  0x3C (60)                                     *
+* Character disabled:  0x3D (61)                                     *
+* Character disabled:  0x3E (62)                                     *
+* Character disabled:  0x3F (63)                                     *
 * Character disabled:  0x5B (91)                                     *
 * Character disabled:  0x5C (92)                                     *
 * Character disabled:  0x5D (93)                                     *
 * Character disabled:  0x5E (94)                                     *
 * Character disabled:  0x5F (95)                                     *
+* Character enabled:   0x5F (95)                                     *
+* Edit/Delete/Bottom    at character 0x41 (65)                       *
+* Edit/Delete/Bottom    at character 0x41 (65)                       *
+* Character enabled:   0x25 (37)                                     *
 *                                                                    *
 **********************************************************************
 */
@@ -70,6 +79,171 @@ GUI_CONST_STORAGE unsigned char acGUI_FontCalibri_13_Bold_0020[ 13] = { /* code 
   ________,
   ________,
   ________};
+
+GUI_CONST_STORAGE unsigned char acGUI_FontCalibri_13_Bold_0025[ 26] = { /* code 0025, PERCENT SIGN */
+  XXXXXX__,__XX____,
+  XX__XX__,__XX____,
+  XX__XX__,_XX_____,
+  XX__XX__,XX______,
+  XXXXXX_X,XX______,
+  _XXXX__X,X_______,
+  ______XX,_XXXX___,
+  _____XXX,XXXXXX__,
+  _____XX_,XX__XX__,
+  ____XX__,XX__XX__,
+  ___XX___,XX__XX__,
+  ___XX___,XXXXXX__,
+  __XX____,_XXXX___};
+
+GUI_CONST_STORAGE unsigned char acGUI_FontCalibri_13_Bold_0030[ 26] = { /* code 0030, DIGIT ZERO */
+  ___XXXXX,________,
+  __XXXXXX,X_______,
+  __XXX_XX,X_______,
+  _XXX___X,XX______,
+  _XXX___X,XX______,
+  _XXX___X,XX______,
+  _XXX___X,XX______,
+  _XXX___X,XX______,
+  _XXX___X,XX______,
+  _XXX___X,XX______,
+  __XXX_XX,X_______,
+  __XXXXXX,X_______,
+  ___XXXXX,________};
+
+GUI_CONST_STORAGE unsigned char acGUI_FontCalibri_13_Bold_0031[ 26] = { /* code 0031, DIGIT ONE */
+  ____XXX_,________,
+  _XXXXXX_,________,
+  _XX_XXX_,________,
+  ____XXX_,________,
+  ____XXX_,________,
+  ____XXX_,________,
+  ____XXX_,________,
+  ____XXX_,________,
+  ____XXX_,________,
+  ____XXX_,________,
+  ____XXX_,________,
+  _XXXXXXX,XX______,
+  _XXXXXXX,XX______};
+
+GUI_CONST_STORAGE unsigned char acGUI_FontCalibri_13_Bold_0032[ 26] = { /* code 0032, DIGIT TWO */
+  __XXXXX_,________,
+  _XXXXXXX,________,
+  _X____XX,X_______,
+  ______XX,X_______,
+  ______XX,X_______,
+  ______XX,X_______,
+  _____XXX,________,
+  ____XXX_,________,
+  ___XXX__,________,
+  __XXX___,________,
+  _XXX____,________,
+  _XXXXXXX,XX______,
+  _XXXXXXX,XX______};
+
+GUI_CONST_STORAGE unsigned char acGUI_FontCalibri_13_Bold_0033[ 26] = { /* code 0033, DIGIT THREE */
+  __XXXXXX,________,
+  _XXXXXXX,X_______,
+  _X____XX,X_______,
+  ______XX,X_______,
+  _____XXX,X_______,
+  __XXXXX_,________,
+  __XXXXXX,X_______,
+  ______XX,XX______,
+  _______X,XX______,
+  _______X,XX______,
+  _X____XX,XX______,
+  _XXXXXXX,X_______,
+  __XXXXXX,________};
+
+GUI_CONST_STORAGE unsigned char acGUI_FontCalibri_13_Bold_0034[ 26] = { /* code 0034, DIGIT FOUR */
+  ____XXXX,________,
+  ___XXXXX,________,
+  ___XXXXX,________,
+  __XX_XXX,________,
+  __XX_XXX,________,
+  _XX__XXX,________,
+  _XX__XXX,________,
+  XX___XXX,________,
+  XXXXXXXX,XX______,
+  XXXXXXXX,XX______,
+  _____XXX,________,
+  _____XXX,________,
+  _____XXX,________};
+
+GUI_CONST_STORAGE unsigned char acGUI_FontCalibri_13_Bold_0035[ 26] = { /* code 0035, DIGIT FIVE */
+  __XXXXXX,X_______,
+  __XXXXXX,X_______,
+  __XX____,________,
+  __XX____,________,
+  __XX____,________,
+  __XXXXXX,________,
+  __XXXXXX,X_______,
+  ______XX,XX______,
+  _______X,XX______,
+  _______X,XX______,
+  _X____XX,XX______,
+  _XXXXXXX,X_______,
+  __XXXXX_,________};
+
+GUI_CONST_STORAGE unsigned char acGUI_FontCalibri_13_Bold_0036[ 26] = { /* code 0036, DIGIT SIX */
+  ____XXXX,X_______,
+  ___XXXXX,X_______,
+  __XXX___,________,
+  _XXX____,________,
+  _XXX____,________,
+  _XXXXXXX,X_______,
+  _XXXXXXX,XX______,
+  _XXX___X,XX______,
+  _XXX___X,XX______,
+  _XXX___X,XX______,
+  _XXXX__X,XX______,
+  __XXXXXX,X_______,
+  ___XXXXX,________};
+
+GUI_CONST_STORAGE unsigned char acGUI_FontCalibri_13_Bold_0037[ 26] = { /* code 0037, DIGIT SEVEN */
+  _XXXXXXX,XX______,
+  _XXXXXXX,XX______,
+  _______X,XX______,
+  ______XX,X_______,
+  ______XX,X_______,
+  _____XXX,________,
+  _____XXX,________,
+  ____XXX_,________,
+  ____XXX_,________,
+  ___XXX__,________,
+  ___XXX__,________,
+  __XXX___,________,
+  __XXX___,________};
+
+GUI_CONST_STORAGE unsigned char acGUI_FontCalibri_13_Bold_0038[ 26] = { /* code 0038, DIGIT EIGHT */
+  ___XXXXX,________,
+  __XXXXXX,XX______,
+  _XXX___X,XX______,
+  _XXX___X,XX______,
+  _XXXX__X,XX______,
+  __XXXXXX,X_______,
+  ___XXXXX,________,
+  __XXX_XX,X_______,
+  _XXX___X,XX______,
+  _XXX___X,XX______,
+  _XXX___X,XX______,
+  _XXXXXXX,X_______,
+  ___XXXXX,________};
+
+GUI_CONST_STORAGE unsigned char acGUI_FontCalibri_13_Bold_0039[ 26] = { /* code 0039, DIGIT NINE */
+  ___XXXXX,________,
+  __XXXXXX,X_______,
+  _XXX__XX,XX______,
+  _XXX___X,XX______,
+  _XXX___X,XX______,
+  _XXX___X,XX______,
+  _XXXXXXX,XX______,
+  __XXXXXX,XX______,
+  _______X,XX______,
+  _______X,X_______,
+  ______XX,X_______,
+  _XXXXXXX,________,
+  _XXXXXX_,________};
 
 GUI_CONST_STORAGE unsigned char acGUI_FontCalibri_13_Bold_0041[ 26] = { /* code 0041, LATIN CAPITAL LETTER A */
   _____XXX,________,
@@ -461,8 +635,34 @@ GUI_CONST_STORAGE unsigned char acGUI_FontCalibri_13_Bold_005A[ 26] = { /* code 
   _XXXXXXX,XX______,
   _XXXXXXX,XX______};
 
-GUI_CONST_STORAGE GUI_CHARINFO GUI_FontCalibri_13_Bold_CharInfo[27] = {
+GUI_CONST_STORAGE unsigned char acGUI_FontCalibri_13_Bold_005F[ 26] = { /* code 005F, LOW LINE */
+  ________,________,
+  ________,________,
+  ________,________,
+  ________,________,
+  ________,________,
+  ________,________,
+  ________,________,
+  ________,________,
+  ________,________,
+  ________,________,
+  ________,________,
+  ________,________,
+  ________,________};
+
+GUI_CONST_STORAGE GUI_CHARINFO GUI_FontCalibri_13_Bold_CharInfo[39] = {
    {   5,   5,  1, acGUI_FontCalibri_13_Bold_0020 } /* code 0020 */
+  ,{  15,  15,  2, acGUI_FontCalibri_13_Bold_0025 } /* code 0025 */
+  ,{  11,  11,  2, acGUI_FontCalibri_13_Bold_0030 } /* code 0030 */
+  ,{  11,  11,  2, acGUI_FontCalibri_13_Bold_0031 } /* code 0031 */
+  ,{  11,  11,  2, acGUI_FontCalibri_13_Bold_0032 } /* code 0032 */
+  ,{  11,  11,  2, acGUI_FontCalibri_13_Bold_0033 } /* code 0033 */
+  ,{  11,  11,  2, acGUI_FontCalibri_13_Bold_0034 } /* code 0034 */
+  ,{  11,  11,  2, acGUI_FontCalibri_13_Bold_0035 } /* code 0035 */
+  ,{  11,  11,  2, acGUI_FontCalibri_13_Bold_0036 } /* code 0036 */
+  ,{  11,  11,  2, acGUI_FontCalibri_13_Bold_0037 } /* code 0037 */
+  ,{  11,  11,  2, acGUI_FontCalibri_13_Bold_0038 } /* code 0038 */
+  ,{  11,  11,  2, acGUI_FontCalibri_13_Bold_0039 } /* code 0039 */
   ,{  13,  13,  2, acGUI_FontCalibri_13_Bold_0041 } /* code 0041 */
   ,{  12,  12,  2, acGUI_FontCalibri_13_Bold_0042 } /* code 0042 */
   ,{  11,  11,  2, acGUI_FontCalibri_13_Bold_0043 } /* code 0043 */
@@ -489,13 +689,35 @@ GUI_CONST_STORAGE GUI_CHARINFO GUI_FontCalibri_13_Bold_CharInfo[27] = {
   ,{  12,  12,  2, acGUI_FontCalibri_13_Bold_0058 } /* code 0058 */
   ,{  11,  11,  2, acGUI_FontCalibri_13_Bold_0059 } /* code 0059 */
   ,{  10,  10,  2, acGUI_FontCalibri_13_Bold_005A } /* code 005A */
+  ,{  10,  10,  2, acGUI_FontCalibri_13_Bold_005F } /* code 005F */
+};
+
+GUI_CONST_STORAGE GUI_FONT_PROP GUI_FontCalibri_13_Bold_Prop5 = {
+   0x005F /* first character */
+  ,0x005F /* last character  */
+  ,&GUI_FontCalibri_13_Bold_CharInfo[ 38] /* address of first character */
+  ,(GUI_CONST_STORAGE GUI_FONT_PROP *)0 /* pointer to next GUI_FONT_PROP */
+};
+
+GUI_CONST_STORAGE GUI_FONT_PROP GUI_FontCalibri_13_Bold_Prop4 = {
+   0x0041 /* first character */
+  ,0x005A /* last character  */
+  ,&GUI_FontCalibri_13_Bold_CharInfo[ 12] /* address of first character */
+  ,&GUI_FontCalibri_13_Bold_Prop5 /* pointer to next GUI_FONT_PROP */
+};
+
+GUI_CONST_STORAGE GUI_FONT_PROP GUI_FontCalibri_13_Bold_Prop3 = {
+   0x0030 /* first character */
+  ,0x0039 /* last character  */
+  ,&GUI_FontCalibri_13_Bold_CharInfo[  2] /* address of first character */
+  ,&GUI_FontCalibri_13_Bold_Prop4 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_FontCalibri_13_Bold_Prop2 = {
-   0x0041 /* first character */
-  ,0x005A /* last character  */
+   0x0025 /* first character */
+  ,0x0025 /* last character  */
   ,&GUI_FontCalibri_13_Bold_CharInfo[  1] /* address of first character */
-  ,(GUI_CONST_STORAGE GUI_FONT_PROP *)0 /* pointer to next GUI_FONT_PROP */
+  ,&GUI_FontCalibri_13_Bold_Prop3 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_FontCalibri_13_Bold_Prop1 = {

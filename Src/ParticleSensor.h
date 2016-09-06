@@ -54,8 +54,10 @@ typedef union
 
 typedef struct
 {
-	u16 data_pm2_5;
 	PMSFrameUnion * PMSUnion;
+	u16 data_pm2_5;
+	u16 data_pm10;
+	u16 data_qt0_3;
 	u8 HeadFlag;
 	u8 HeadPointer;
 	u8 DataPtr;

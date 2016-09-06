@@ -80,6 +80,9 @@ void MX_LTDC_Init(void);
 void UART4_Init();
 void UART7_Init();
 void MX_TIM4_Init(void);
+void Read_Key();
+void Handle_Pages();
+void Start_New_Page(PAGE_TYPE New_Page);
 
 unsigned char page_key_flag;
 unsigned char page_key_toggle;
@@ -88,6 +91,7 @@ unsigned char tune_key_flag;
 unsigned char tune_key_toggle;
 unsigned char tune_key_debounce_timer;
 PAGE_TYPE Active_Page;
+unsigned short mainboard_comm_timer;
 
 void __errno()
 {
@@ -98,6 +102,7 @@ void Timer_ISR()
 {
 	if(page_key_debounce_timer)		page_key_debounce_timer--;
 	if(tune_key_debounce_timer)		tune_key_debounce_timer--;
+	if(mainboard_comm_timer)		mainboard_comm_timer--;
 }
 int main(void)
 {
@@ -115,25 +120,28 @@ int main(void)
   MX_TIM4_Init();
   __HAL_RCC_CRC_CLK_ENABLE();
 
+  /*STemWin init*/
   GUI_Init();
 
-  Page_One_Init();
-//  Page_Two_Init();
-//  Page_Three_Init();
-//  CreateWindow();
-//  GUI_Exec();
-
+  /*Variables init*/
+  Carbon_Life = 99;
+  Hepa_Life   = 99;
   page_key_debounce_timer = 100;
   tune_key_debounce_timer = 100;
+  mainboard_comm_timer    = 3000;
+
+  Start_New_Page(PAGE_ONE);
   while (1)
   {
     /* particle sensor */
 	if(Sensor3.PMSFrameFlag)
 	{
-	  Sensor3.PMSFrameFlag = 0;
+	    Sensor3.PMSFrameFlag = 0;
 		if(FrameCheck(&Sensor3))
 		{
 			Sensor3.data_pm2_5 = WORD_SWAP(Sensor3.PMSUnion->MyPMFrame.PM2_5_US);
+			Sensor3.data_pm10  = WORD_SWAP(Sensor3.PMSUnion->MyPMFrame.PM10_US);
+			Sensor3.data_qt0_3 = WORD_SWAP(Sensor3.PMSUnion->MyPMFrame.QT0_3);
 			In_PM.PM_Value = Sensor3.data_pm2_5;
 			New_PM_Data = 1;
 		}
@@ -162,8 +170,15 @@ int main(void)
 		}
 	}
 
+
+
+	if(!mainboard_comm_timer)
+	{
+		mainboard_comm_timer = 3000;
+		Send2MainBoard();
+	}
 	Read_Key();
-	Handle_Page_One();
+	Handle_Pages();
 
 	asm("wfi");
   /* USER CODE BEGIN 3 */
@@ -538,7 +553,8 @@ void MX_TIM4_Init(void)
   HAL_TIMEx_ConfigBreakDeadTime(&htim4, &sBreakDeadTimeConfig);
 
   sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = 300;
+  Bright_Level = 4;
+  sConfigOC.Pulse = Bright_Duty[Bright_Level];
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
 //  sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_ENABLE;
@@ -552,7 +568,7 @@ void MX_TIM4_Init(void)
 void Read_Key()
 {
 	page_key_flag = 0;
-	if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_8) == GPIO_PIN_RESET)
+	if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_8) == GPIO_PIN_SET) //high unpressed
 	{
 		page_key_debounce_timer = 100;
 		page_key_toggle = 1;
@@ -566,7 +582,7 @@ void Read_Key()
 	}
 
 	tune_key_flag = 0;
-	if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_9) == GPIO_PIN_RESET)
+	if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_9) == GPIO_PIN_SET) //high unpressed
 	{
 		tune_key_debounce_timer = 100;
 		tune_key_toggle = 1;
@@ -588,6 +604,7 @@ void Start_New_Page(PAGE_TYPE New_Page)
 		Page_One_Init();
 		break;
 	case PAGE_TWO:
+		Page_Two_Init();
 		break;
 	case PAGE_THREE:
 		Page_Three_Init();
@@ -601,12 +618,39 @@ void Start_New_Page(PAGE_TYPE New_Page)
 }
 void Handle_Pages()
 {
+	if(page_key_flag && page_key_toggle)
+	{
+		page_key_toggle = 0;
+		switch (Active_Page)
+		{
+		case PAGE_ONE:
+			Start_New_Page(PAGE_TWO);
+			break;
+
+		case PAGE_TWO:
+			WM_DeleteWindow(hWin);//delete page two window
+			Start_New_Page(PAGE_THREE);
+			break;
+
+		case PAGE_THREE:
+			Start_New_Page(PAGE_ONE);
+			break;
+
+		case PAGE_FOUR:
+			break;
+
+		default:
+			break;
+		}
+	}
+
 	switch (Active_Page)
 	{
 	case PAGE_ONE:
 		Handle_Page_One();
 		break;
 	case PAGE_TWO:
+		Handle_Page_Two();
 		break;
 	case PAGE_THREE:
 		Handle_Page_Three();

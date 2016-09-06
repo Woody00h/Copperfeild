@@ -36,7 +36,7 @@
 #include "stm32f4xx_it.h"
 
 /* USER CODE BEGIN 0 */
-
+extern void Timer_ISR();
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
@@ -172,7 +172,7 @@ void SysTick_Handler(void)
   HAL_IncTick();
   HAL_SYSTICK_IRQHandler();
   /* USER CODE BEGIN SysTick_IRQn 1 */
-
+  Timer_ISR();
   /* USER CODE END SysTick_IRQn 1 */
 }
 

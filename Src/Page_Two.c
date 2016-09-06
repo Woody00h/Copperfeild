@@ -7,26 +7,106 @@
 #include "GUI.h"
 #include "DIALOG.h"
 #include "Font.h"
+#include "Page.h"
 
-
-extern GUI_BITMAP bmProducts_Standard_Filter;
+extern unsigned char New_PM_Data;
+WM_HWIN hWin;
 
 void Page_Two_Init()
 {
-	GUI_RECT myRect = {0,17,319,30};
-	PROGBAR_Handle Hepa_ProgBar;
-
-	//clear window
-	GUI_SetBkColor(GUI_BLACK);
-	GUI_Clear();
-
-	//"FILTER CONFIGURATION"
-	GUI_SetFont(&GUI_FontCalibri_13_Bold);
-	GUI_SetColor(GUI_WHITE);
-	GUI_DispStringInRect("FILTER CONFIGURATION", &myRect, GUI_TA_VCENTER | GUI_TA_HCENTER);
-
-	GUI_DrawBitmap(&bmProducts_Standard_Filter,33,46);
-
-	Hepa_ProgBar = PROGBAR_CreateEx(120,268,128,14,0,WM_CF_SHOW,PROGBAR_CF_HORIZONTAL,0);
+	hWin = CreateWindow();
+	GUI_Exec();
 }
 
+void Handle_Page_Two()
+{
+	unsigned char page_change = 0,i;
+	WM_HWIN      hbar;
+	WM_HWIN      htext;
+	if(New_PM_Data)
+	{
+		New_PM_Data = 0;
+		if(Old_Hepa_Life != Hepa_Life)
+		{
+			Old_Hepa_Life = Hepa_Life;
+
+			//progress bar
+			hbar = WM_GetDialogItem(hWin, ID_PROGBAR_0);
+			htext = WM_GetDialogItem(hWin, ID_TEXT_8);
+
+			Value2String(Hepa_Life,PM2_5_String);
+			for(i=0;;i++)
+			{
+				if(PM2_5_String[i] == '\0')
+				{
+					PM2_5_String[i] = '%';
+					PM2_5_String[i+1] = '\0';
+					break;
+				}
+			}
+			TEXT_SetText(htext, PM2_5_String);
+
+			PROGBAR_SetValue(hbar,100-Hepa_Life);
+
+			if(Hepa_Life>60)
+			{
+				PROGBAR_SetBarColor(hbar,1,GUI_GREEN);
+				TEXT_SetTextColor(htext,GUI_GREEN);
+			}
+			else if(Hepa_Life>30)
+			{
+				PROGBAR_SetBarColor(hbar,1,GUI_YELLOW);
+				TEXT_SetTextColor(htext,GUI_YELLOW);
+			}
+			else
+			{
+				PROGBAR_SetBarColor(hbar,1,GUI_RED);
+				TEXT_SetTextColor(htext,GUI_RED);
+			}
+
+			page_change = 1;
+		}
+
+		if(Old_Carbon_Life != Carbon_Life)
+		{
+			Old_Carbon_Life = Carbon_Life;
+			hbar = WM_GetDialogItem(hWin, ID_PROGBAR_1);
+			htext = WM_GetDialogItem(hWin, ID_TEXT_9);
+
+			Value2String(Carbon_Life,PM2_5_String);
+			for(i=0;;i++)
+			{
+				if(PM2_5_String[i] == '\0')
+				{
+					PM2_5_String[i] = '%';
+					PM2_5_String[i+1] = '\0';
+					break;
+				}
+			}
+			TEXT_SetText(htext, PM2_5_String);
+
+			PROGBAR_SetValue(hbar,100-Carbon_Life);
+
+			if(Carbon_Life>60)
+			{
+				PROGBAR_SetBarColor(hbar,1,GUI_GREEN);
+				TEXT_SetTextColor(htext,GUI_GREEN);
+			}
+			else if(Carbon_Life>30)
+			{
+				PROGBAR_SetBarColor(hbar,1,GUI_YELLOW);
+				TEXT_SetTextColor(htext,GUI_YELLOW);
+			}
+			else
+			{
+				PROGBAR_SetBarColor(hbar,1,GUI_RED);
+				TEXT_SetTextColor(htext,GUI_RED);
+			}
+
+			page_change = 1;
+		}
+
+		if(page_change)
+		GUI_Exec();
+	}
+}

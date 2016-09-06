@@ -43,6 +43,7 @@
 									<listOptionValue builtIn="false" value="../STemWin/Config"/>
 									<listOptionValue builtIn="false" value="../STemWin/Demo"/>
 									<listOptionValue builtIn="false" value="../STemWin/Font"/>
+									<listOptionValue builtIn="false" value="../Src"/>
 								</option>
 								<option id="gnu.c.compiler.option.preprocessor.def.symbols.915927644" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="__weak=&quot;__attribute__((weak))&quot;"/>
@@ -88,7 +89,7 @@
 					<sourceEntries>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Inc"/>
-						<entry excluding="Demo|Font/Calibri_18_bold.c|OS/GUI_X_FreeRTOS.c|Config/LCDConf_FlexColor_Template.c|Config/LCDConf_FlexColor_Template.h|Config/GUIDRV_Template.h|Config/GUIDRV_Template.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="STemWin"/>
+						<entry excluding="Picture/FramewinDLG.c|Picture/WindowDLG.c|Demo|Font/Calibri_18_bold.c|OS/GUI_X_FreeRTOS.c|Config/LCDConf_FlexColor_Template.c|Config/LCDConf_FlexColor_Template.h|Config/GUIDRV_Template.h|Config/GUIDRV_Template.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="STemWin"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Src"/>
 					</sourceEntries>
 				</configuration>

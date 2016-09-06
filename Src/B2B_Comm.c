@@ -9,6 +9,9 @@
 #include "B2B_Comm.h"
 #include "ParticleSensor.h"
 #include "stm32f4xx.h"
+#include "Page.h"
+
+extern UART_HandleTypeDef 	UART7_Handle;
 
 #define RXNE 	0x20
 #define TXE		0x80
@@ -95,4 +98,28 @@ u8 M2DFrameCheck(Main2DispComm *comm)
 	{
 		return 0;
 	}
+}
+
+void Send2MainBoard()
+{
+	unsigned short sum,i;
+
+	MyD2MUnion.MyD2MStruct.Head 	= 0x464d;
+	MyD2MUnion.MyD2MStruct.Length	= 10;
+	MyD2MUnion.MyD2MStruct.PM2_5_US	= WORD_SWAP(Sensor3.data_pm2_5);
+	MyD2MUnion.MyD2MStruct.PM10_US	= WORD_SWAP(Sensor3.data_pm10);
+	MyD2MUnion.MyD2MStruct.PQ0_3	= WORD_SWAP(Sensor3.data_qt0_3);
+	MyD2MUnion.MyD2MStruct.Brightness	= Bright_Level;
+	MyD2MUnion.MyD2MStruct.Err		= 0;
+
+	sum = 0;
+	for(i=0;i<12;i++)
+	{
+		sum += MyD2MUnion.Disp2MainBuf[i];
+	}
+
+	MyD2MUnion.MyD2MStruct.CheckSum = sum;
+
+	HAL_UART_Transmit(&UART7_Handle,MyD2MUnion.Disp2MainBuf,14,1000);
+
 }

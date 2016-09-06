@@ -7,8 +7,11 @@
 
 #include "GUI.h"
 #include "Font.h"
+#include "stm32f4xx.h"
+#include "Page.h"
 
 extern GUI_BITMAP bmBrightnessIconBlack;
+extern TIM_HandleTypeDef	htim4;
 unsigned char Bright_Level;
 const unsigned short Bright_Duty[] = {100,200,300,400,500,600,700};
 void Bright_Bar_Update()
@@ -54,9 +57,9 @@ void Page_Three_Init()
 
 void Handle_Page_Three()
 {
-	if(Tune_Key_Flag && Tune_Key_Toggle)
+	if(tune_key_flag && tune_key_toggle)
 	{
-		Tune_Key_Toggle = 0;
+		tune_key_toggle = 0;
 
 		Bright_Level ++;
 		if(Bright_Level > 6)

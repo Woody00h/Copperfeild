@@ -16,7 +16,8 @@ Src/Page_Two.o: ../Src/Page_Two.c ../STemWin/inc/GUI.h \
  ../STemWin/inc/MULTIEDIT.h ../STemWin/inc/MULTIPAGE.h \
  ../STemWin/inc/DIALOG.h ../STemWin/inc/PROGBAR.h ../STemWin/inc/RADIO.h \
  ../STemWin/inc/SLIDER.h ../STemWin/inc/SPINBOX.h ../STemWin/inc/TEXT.h \
- ../STemWin/inc/TREEVIEW.h ../STemWin/inc/KNOB.h ../STemWin/Font/Font.h
+ ../STemWin/inc/TREEVIEW.h ../STemWin/inc/KNOB.h ../STemWin/Font/Font.h \
+ ../Src/Page.h ../STemWin/inc/WM.h
 
 ../STemWin/inc/GUI.h:
 
@@ -107,3 +108,7 @@ Src/Page_Two.o: ../Src/Page_Two.c ../STemWin/inc/GUI.h \
 ../STemWin/inc/KNOB.h:
 
 ../STemWin/Font/Font.h:
+
+../Src/Page.h:
+
+../STemWin/inc/WM.h:

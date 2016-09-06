@@ -23,11 +23,8 @@ PMSFrameUnion Sensor3Union;
 //PMSFrameUnion Sensor4Union;
 //PMSFrameUnion Sensor5Union;
 
-//ParticleSensor Sensor1 = {0, &Sensor1Union, 0, 0, 0, 0,};
-//ParticleSensor Sensor2 = {0, &Sensor2Union, 0, 0, 0, 0,};
-ParticleSensor Sensor3 = {0, &Sensor3Union, 0, 0, 0, 0,};
-//ParticleSensor Sensor4 = {0, &Sensor4Union, 0, 0, 0, 0,};
-//ParticleSensor Sensor5 = {0, &Sensor5Union, 0, 0, 0, 0,};
+ParticleSensor Sensor3 = {&Sensor3Union, 0, 0, 0, 0, 0, 0, 0};
+
 
 //ParticleSensor * Sensors[5] = {&Sensor1, &Sensor2, &Sensor3, &Sensor4, &Sensor5};
 

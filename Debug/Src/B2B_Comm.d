@@ -31,7 +31,11 @@ Src/B2B_Comm.o: ../Src/B2B_Comm.c ../Src/B2B_Comm.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h ../Src/Page.h \
+ ../STemWin/inc/WM.h ../STemWin/inc/GUI_ConfDefaults.h \
+ ../STemWin/Config/GUIConf.h ../STemWin/inc/GUI_Type.h \
+ ../STemWin/inc/LCD.h ../STemWin/inc/Global.h ../STemWin/inc/WM_GUI.h \
+ ../STemWin/inc/GUI.h ../STemWin/inc/GUI_Version.h
 
 ../Src/B2B_Comm.h:
 
@@ -102,3 +106,23 @@ Src/B2B_Comm.o: ../Src/B2B_Comm.c ../Src/B2B_Comm.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h:
+
+../Src/Page.h:
+
+../STemWin/inc/WM.h:
+
+../STemWin/inc/GUI_ConfDefaults.h:
+
+../STemWin/Config/GUIConf.h:
+
+../STemWin/inc/GUI_Type.h:
+
+../STemWin/inc/LCD.h:
+
+../STemWin/inc/Global.h:
+
+../STemWin/inc/WM_GUI.h:
+
+../STemWin/inc/GUI.h:
+
+../STemWin/inc/GUI_Version.h:
