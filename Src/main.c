@@ -142,7 +142,7 @@ int main(void)
 			Sensor3.data_pm2_5 = WORD_SWAP(Sensor3.PMSUnion->MyPMFrame.PM2_5_US);
 			Sensor3.data_pm10  = WORD_SWAP(Sensor3.PMSUnion->MyPMFrame.PM10_US);
 			Sensor3.data_qt0_3 = WORD_SWAP(Sensor3.PMSUnion->MyPMFrame.QT0_3);
-			In_PM.PM_Value = Sensor3.data_pm2_5;
+//			In_PM.PM_Value = Sensor3.data_pm2_5;
 			New_PM_Data = 1;
 		}
 	}
@@ -162,9 +162,18 @@ int main(void)
 				Carbon_Life = 99;
 
 			VOC_Level = MyM2DComm.M2DUnionPtr->MyM2DStruct.VOC_Level;
-			Out_PM.PM_Value = MyM2DComm.M2DUnionPtr->MyM2DStruct.PM2_5_US;
-			if(Out_PM.PM_Value > 99)
-				Out_PM.PM_Value = 99;
+			MyM2DComm.PM2_5 = MyM2DComm.M2DUnionPtr->MyM2DStruct.PM2_5_US;
+			MyM2DComm.PM10  = MyM2DComm.M2DUnionPtr->MyM2DStruct.PM10_US;
+
+			if( MyM2DComm.M2DUnionPtr->MyM2DStruct.AQI_In & 0x8000)
+				MyM2DComm.AQI10_In = MyM2DComm.M2DUnionPtr->MyM2DStruct.AQI_In & 0x7fff;
+			else
+				MyM2DComm.AQI2_5_In = MyM2DComm.M2DUnionPtr->MyM2DStruct.AQI_In;
+
+			if( MyM2DComm.M2DUnionPtr->MyM2DStruct.AQI_Out & 0x8000)
+				MyM2DComm.AQI10_Out = MyM2DComm.M2DUnionPtr->MyM2DStruct.AQI_Out & 0x7fff;
+			else
+				MyM2DComm.AQI2_5_Out = MyM2DComm.M2DUnionPtr->MyM2DStruct.AQI_Out;
 
 			New_PM_Data = 1;
 		}
@@ -664,7 +673,7 @@ void Handle_Pages()
 /* USER CODE END 4 */
 
 /**
-  * @brief  This function is executed in case of error occurrence.
+  * @brief  This function is executed Out case of error occurrence.
   * @param  None
   * @retval None
   */

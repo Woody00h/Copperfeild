@@ -73,6 +73,12 @@ typedef union
 typedef struct
 {
 	Main2DispUnion * M2DUnionPtr;
+	u16 PM2_5;
+	u16 PM10;
+	u16 AQI10_Out;
+	u16 AQI10_In;
+	u16 AQI2_5_Out;
+	u16 AQI2_5_In;
 	u8 HeadFlag;
 	u8 HeadPointer;
 	u8 DataPtr;

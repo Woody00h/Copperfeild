@@ -42,6 +42,13 @@ typedef enum {
 	PAGE_FOUR,
 }PAGE_TYPE;
 
+typedef enum {
+	CHILD_AP2_5,
+	CHILD_AP10,
+	CHILD_AQI2_5,
+	CHILD_AQI10,
+}CHILD_PAGE;
+
 typedef struct
 {
 	unsigned short PM_Value;
@@ -65,6 +72,7 @@ extern unsigned char tune_key_toggle;
 extern unsigned char Bright_Level;
 extern const unsigned short Bright_Duty[];
 extern unsigned char PM2_5_String[];
+extern unsigned char New_PM_Data;
 
 void Page_One_Init();
 void Page_Two_Init();
@@ -73,5 +81,6 @@ void Page_Three_Init();
 void Handle_Page_One();
 void Handle_Page_Two();
 void Handle_Page_Three();
+void Value2String(unsigned int value, unsigned char * str);
 WM_HWIN CreateWindow(void);
 #endif

@@ -8,6 +8,7 @@
 #include "Font.h"
 #include "ParticleSensor.h"
 #include "Page.h"
+#include "B2B_Comm.h"
 
 PM_Info In_PM;
 PM_Info Out_PM;
@@ -22,8 +23,7 @@ unsigned char Old_Carbon_Life;
 unsigned char VOC_Level;
 unsigned char Old_VOC_Level;
 
-extern unsigned char New_PM_Data;
-void Value2String(unsigned int value, unsigned char * str);
+CHILD_PAGE Child_Page;
 
 PM_LEVEL PM_Level(unsigned short value)
 {
@@ -277,6 +277,7 @@ void Page_One_Init()
 {
 	GUI_RECT myRect = {0,12,319,30};
 
+	Child_Page = CHILD_AP2_5;
 	//clear the window
 	GUI_SetBkColor(GUI_BLACK);
 	GUI_Clear();
@@ -355,9 +356,116 @@ void Page_One_Init()
 
 void Handle_Page_One()
 {
+	GUI_RECT myRect = {0,12,319,30};
+	if(tune_key_flag && tune_key_toggle)
+	{
+		tune_key_toggle = 0;
+
+		GUI_ClearRect(277,287,300,300);
+		GUI_ClearRect(277,94,300,107);
+
+		switch (Child_Page)
+		{
+		case CHILD_AP2_5:
+			//change to air particles in pm10
+			Child_Page = CHILD_AP10;
+			//"PM10"
+			GUI_SetFont(&GUI_FontCalibri_9_Bold);
+			GUI_SetColor(GUI_WHITE);
+			GUI_GotoXY(277,287);
+			GUI_DispString("10");
+			GUI_GotoXY(277,94);
+			GUI_DispString("10");
+			break;
+		case CHILD_AP10:
+			Child_Page = CHILD_AQI2_5;
+			//"pm2.5"
+			GUI_SetFont(&GUI_FontCalibri_9_Bold);
+			GUI_SetColor(GUI_WHITE);
+			GUI_GotoXY(277,287);
+			GUI_DispString("2.5");
+
+			GUI_GotoXY(277,94);
+			GUI_DispString("2.5");
+
+			GUI_ClearRect(0,12,319,30);
+			GUI_SetFont(&GUI_FontCalibri_19_Bold);
+			GUI_DispStringInRect("AQI OUT", &myRect, GUI_TA_VCENTER | GUI_TA_HCENTER);
+
+			GUI_ClearRect(0,214,319,232);
+			myRect.x0 = 0;
+			myRect.y0 = 214;
+			myRect.x1 = 319;
+			myRect.y1 = 232;
+			GUI_DispStringInRect("AQI IN", &myRect, GUI_TA_VCENTER | GUI_TA_HCENTER);
+			break;
+		case CHILD_AQI2_5:
+			Child_Page = CHILD_AQI10;
+			//"PM10"
+			GUI_SetFont(&GUI_FontCalibri_9_Bold);
+			GUI_SetColor(GUI_WHITE);
+			GUI_GotoXY(277,287);
+			GUI_DispString("10");
+			GUI_GotoXY(277,94);
+			GUI_DispString("10");
+			break;
+		case CHILD_AQI10:
+			Child_Page = CHILD_AP2_5;
+			//"pm2.5"
+			GUI_SetFont(&GUI_FontCalibri_9_Bold);
+			GUI_SetColor(GUI_WHITE);
+			GUI_GotoXY(277,287);
+			GUI_DispString("2.5");
+
+			GUI_GotoXY(277,94);
+			GUI_DispString("2.5");
+
+			GUI_ClearRect(0,12,319,30);
+			GUI_SetFont(&GUI_FontCalibri_19_Bold);
+			GUI_DispStringInRect("AIR PARTICLES OUT", &myRect, GUI_TA_VCENTER | GUI_TA_HCENTER);
+
+			GUI_ClearRect(0,214,319,232);
+			myRect.x0 = 0;
+			myRect.y0 = 214;
+			myRect.x1 = 319;
+			myRect.y1 = 232;
+			GUI_DispStringInRect("AIR PARTICLES IN", &myRect, GUI_TA_VCENTER | GUI_TA_HCENTER);
+			break;
+		default:
+			break;
+		}
+
+		New_PM_Data = 1; //force change
+	}
+
 	if(New_PM_Data)
 	{
 		New_PM_Data = 0;
+
+		switch (Child_Page)
+		{
+		case CHILD_AP2_5:
+			In_PM.PM_Value = Sensor3.data_pm2_5;
+			Out_PM.PM_Value = MyM2DComm.PM2_5;
+			break;
+		case CHILD_AP10:
+			In_PM.PM_Value = Sensor3.data_pm10;
+			Out_PM.PM_Value = MyM2DComm.PM10;
+			break;
+		case CHILD_AQI2_5:
+			In_PM.PM_Value = MyM2DComm.AQI2_5_In;
+			Out_PM.PM_Value = MyM2DComm.AQI2_5_Out;
+			break;
+		case CHILD_AQI10:
+			In_PM.PM_Value = MyM2DComm.AQI10_In;
+			Out_PM.PM_Value = MyM2DComm.AQI10_Out;
+			break;
+		default:
+			break;
+		}
+
+		if(Out_PM.PM_Value > 99)
+			Out_PM.PM_Value = 99;
 
 		if(Out_PM.Old_PM_Value != Out_PM.PM_Value)
 		{

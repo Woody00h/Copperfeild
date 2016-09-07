@@ -19,21 +19,24 @@
 **********************************************************************
 *                                                                    *
 * Initial font height:  18                                           *
-* Edit/Delete/Top       at character 0x32 (50)                       *
-* Edit/Delete/Top       at character 0x32 (50)                       *
-* Edit/Delete/Top       at character 0x32 (50)                       *
-* Edit/Delete/Top       at character 0x32 (50)                       *
-* Edit/Delete/Top       at character 0x32 (50)                       *
-* Edit/Delete/Bottom    at character 0x32 (50)                       *
-* Edit/Delete/Bottom    at character 0x32 (50)                       *
-* Edit/Delete/Bottom    at character 0x32 (50)                       *
-* Edit/Delete/Bottom    at character 0x32 (50)                       *
+* Edit/Delete/Top       at character 0x31 (49)                       *
+* Edit/Delete/Top       at character 0x31 (49)                       *
+* Edit/Delete/Top       at character 0x31 (49)                       *
+* Edit/Delete/Top       at character 0x31 (49)                       *
+* Edit/Delete/Top       at character 0x31 (49)                       *
+* Edit/Delete/Bottom    at character 0x31 (49)                       *
+* Edit/Delete/Bottom    at character 0x31 (49)                       *
+* Edit/Delete/Bottom    at character 0x31 (49)                       *
+* Edit/Delete/Bottom    at character 0x31 (49)                       *
+* Character disabled:  0x31 (49)                                     *
 * Range disabled:       0000 - FFFF                                  *
+* Character enabled:   0x30 (48)                                     *
+* Character enabled:   0x31 (49)                                     *
 * Character enabled:   0x32 (50)                                     *
 * Character enabled:   0x35 (53)                                     *
-* Character enabled:   0x2C (44)                                     *
+* Character disabled:  0x35 (53)                                     *
 * Character enabled:   0x2E (46)                                     *
-* Character disabled:  0x2C (44)                                     *
+* Character enabled:   0x35 (53)                                     *
 *                                                                    *
 **********************************************************************
 */
@@ -61,6 +64,28 @@ GUI_CONST_STORAGE unsigned char acGUI_FontCalibri_9_Bold_002E[  9] = { /* code 0
   _XX_____,
   _XX_____};
 
+GUI_CONST_STORAGE unsigned char acGUI_FontCalibri_9_Bold_0030[  9] = { /* code 0030, DIGIT ZERO */
+  _XXXX___,
+  XX__XX__,
+  XX__XX__,
+  XX__XX__,
+  XX__XX__,
+  XX__XX__,
+  XX__XX__,
+  XX__XX__,
+  _XXXX___};
+
+GUI_CONST_STORAGE unsigned char acGUI_FontCalibri_9_Bold_0031[  9] = { /* code 0031, DIGIT ONE */
+  __XX____,
+  _XXX____,
+  X_XX____,
+  __XX____,
+  __XX____,
+  __XX____,
+  __XX____,
+  __XX____,
+  XXXXXX__};
+
 GUI_CONST_STORAGE unsigned char acGUI_FontCalibri_9_Bold_0032[  9] = { /* code 0032, DIGIT TWO */
   _XXXX___,
   X___XX__,
@@ -83,8 +108,10 @@ GUI_CONST_STORAGE unsigned char acGUI_FontCalibri_9_Bold_0035[  9] = { /* code 0
   X___XX__,
   _XXXX___};
 
-GUI_CONST_STORAGE GUI_CHARINFO GUI_FontCalibri_9_Bold_CharInfo[3] = {
+GUI_CONST_STORAGE GUI_CHARINFO GUI_FontCalibri_9_Bold_CharInfo[5] = {
    {   4,   4,  1, acGUI_FontCalibri_9_Bold_002E } /* code 002E */
+  ,{   7,   7,  1, acGUI_FontCalibri_9_Bold_0030 } /* code 0030 */
+  ,{   7,   7,  1, acGUI_FontCalibri_9_Bold_0031 } /* code 0031 */
   ,{   7,   7,  1, acGUI_FontCalibri_9_Bold_0032 } /* code 0032 */
   ,{   7,   7,  1, acGUI_FontCalibri_9_Bold_0035 } /* code 0035 */
 };
@@ -92,12 +119,12 @@ GUI_CONST_STORAGE GUI_CHARINFO GUI_FontCalibri_9_Bold_CharInfo[3] = {
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_FontCalibri_9_Bold_Prop3 = {
    0x0035 /* first character */
   ,0x0035 /* last character  */
-  ,&GUI_FontCalibri_9_Bold_CharInfo[  2] /* address of first character */
+  ,&GUI_FontCalibri_9_Bold_CharInfo[  4] /* address of first character */
   ,(GUI_CONST_STORAGE GUI_FONT_PROP *)0 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_FontCalibri_9_Bold_Prop2 = {
-   0x0032 /* first character */
+   0x0030 /* first character */
   ,0x0032 /* last character  */
   ,&GUI_FontCalibri_9_Bold_CharInfo[  1] /* address of first character */
   ,&GUI_FontCalibri_9_Bold_Prop3 /* pointer to next GUI_FONT_PROP */
